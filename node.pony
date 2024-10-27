@@ -22,24 +22,24 @@ actor Node
     be setPredecessor(pre: U64) =>
         predecessor = pre
 
-        _env.out.print("My Id: " + _id.string() + " My Pre: " + predecessor.string())
 
 
     be setFingerTable(nodes: Map[U64, Node tag] val) =>
         _finger_table = nodes
-        for nodeId in nodes.keys() do
-            _env.out.print("My Id: " + _id.string() + " Hash Table Entry: " + nodeId.string())
-        end
+        // for nodeId in nodes.keys() do
+        //     // _env.out.print("My Id: " + _id.string() + " Hash Table Entry: " + nodeId.string())
+        // end
 
 
     // be lookup(key: U64, hops: U64 = 0) =>
-        // TODO:
-        // if key belongs to me, dont forward
-        // update main actor with hops
+    //     _env.out.print("Look for " + key.string())
+    //     TODO:
+    //     if key belongs to me, dont forward
+    //     update main actor with hops
 
-        // Search for appropriate node in the finger table 
-        // Use linear or binary search 
+    //     Search for appropriate node in the finger table 
+    //     Use linear or binary search 
 
-        // Forward the lookup to that node, increment hops counter
-        // before sending it
-        // node.lookup(key, hops + 1)
+    //     Forward the lookup to that node, increment hops counter
+    //     before sending it
+    //     node.lookup(key, hops + 1)
