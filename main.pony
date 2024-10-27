@@ -10,7 +10,8 @@ actor Main
     var fingerTableSize: U64 = 0
     let nodes: Map[U64, Node] = Map[U64, Node]
     let picked: Set[USize] = Set[USize]
-
+    var convergenceCount: U64 = 0
+    var totalHops: U64 = 0
 
     new create(env: Env) =>
         _env = env
@@ -51,10 +52,17 @@ actor Main
 
             nodes(position) = new_node
 
-            // _env.out.print("Created node at position: " + position.string())
+            if i != 0 then 
+                var pre: U64 = ((i.f64() - 1) * interval).round().u64()
+                try nodes(position)?.setPredecessor(pre) end
+            end
+
+
             i = i + 1
         end
+        var predOfFirstNode = ((i.f64() - 1) * interval).round().u64()
 
+        try nodes(0)?.setPredecessor(predOfFirstNode) end
 
 
         _env.out.print("Finger table size: " + fingerTableSize.string())
@@ -110,16 +118,20 @@ actor Main
         var i: U64 = 0
         while i < numRequests do
             let random_value = rand.int(numNodes-1)
-            _env.out.print("Picked value: " + random_value.string())
             picked.add(random_value.usize())
             i = i + 1
         end
-        _env.out.print("Length" + picked.size().string())
 
 
+    be notifyHops(hops': U64) =>
+        totalHops = totalHops + hops'
+        convergenceCount = convergenceCount + 1
+        if convergenceCount == (numNodes * numRequests) then
+            // Calculate Average
+            let average: F64 = totalHops.f64() / convergenceCount.f64()
+            _env.out.print("Average hops is: " + average.string())
+        end
         
-        
-
 
 
 
