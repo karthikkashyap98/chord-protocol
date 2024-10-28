@@ -100,9 +100,16 @@ actor Main
 
 
     fun ref get_network_size(): U64 =>
+        var largest: U64 = 0
+        if numNodes > numRequests then 
+            largest = numNodes
+        else 
+            largest = numRequests
+        end
+
         var size: U64 = 1
         var count: U64 = 0
-        while size <= numNodes do
+        while size <= largest do
             size = size * 2
             count = count + 1
         end
@@ -160,16 +167,6 @@ actor Main
         result
 
 
-    fun generateMessages() =>
-        let rand = Rand(Time.nanos())
-        var i: U64 = 0
-        while i < numRequests do
-            let random_value = rand.int(numNodes-1)
-            picked.add(random_value.usize())
-            i = i + 1
-        end
-
-
     be notifyHops(hops': U64) =>
         totalHops = totalHops + hops'
         convergenceCount = convergenceCount + 1
@@ -200,8 +197,7 @@ actor Main
 
         try 
             for nodeId in nodes.keys() do
-                // nodes(nodeId)?.lookup(messages((index-1).usize())?.u64(), 0)
-                nodes(nodeId)?.lookup(13, 0)
+                nodes(nodeId)?.lookup(messages((index-1).usize())?.u64(), 0)
             end
         end
 
