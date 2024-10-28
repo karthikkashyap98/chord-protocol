@@ -71,6 +71,7 @@ actor Main
 
         for nodeId in nodes.keys() do
             let fingerTable: Map[U64, Node] iso = Map[U64, Node]
+            let fingerTableKeys: Array[U64] iso = Array[U64]
             
 
             var j: U64 = 0
@@ -81,6 +82,10 @@ actor Main
                 let successor_id = find_successor(targetId)
 
                 try
+                    if not fingerTable.contains(successor_id) then 
+                        fingerTableKeys.push(successor_id)
+                    end
+
                     fingerTable(successor_id) = nodes(successor_id)?
                 end
                 
@@ -88,7 +93,7 @@ actor Main
             end
 
             try
-                nodes(nodeId)?.setFingerTable(consume fingerTable)
+                nodes(nodeId)?.setFingerTable(consume fingerTable, consume fingerTableKeys)
             end
         end
 
@@ -168,7 +173,8 @@ actor Main
     be notifyHops(hops': U64) =>
         totalHops = totalHops + hops'
         convergenceCount = convergenceCount + 1
-        if convergenceCount == (numNodes * numRequests) then
+        _env.out.print("Hop notified: " + convergenceCount.string())
+        if convergenceCount >= (numNodes * numRequests) then
             // Calculate Average
             let average: F64 = totalHops.f64() / convergenceCount.f64()
             _env.out.print("Average hops is: " + average.string())
@@ -188,10 +194,14 @@ actor Main
         timers(consume timer)
 
     be sendMessage(index: U64) => 
-        _env.out.print("sending messsage: " + index.string())
+        try
+            _env.out.print("sending messsage: " + messages((index-1).usize())?.u64().string())
+        end
+
         try 
             for nodeId in nodes.keys() do
-                nodes(nodeId)?.printId()
+                // nodes(nodeId)?.lookup(messages((index-1).usize())?.u64(), 0)
+                nodes(nodeId)?.lookup(13, 0)
             end
         end
 
