@@ -30,7 +30,7 @@ This is an implementation of the peer-to-peer lookup service using the Chord pro
 ![image](https://github.com/user-attachments/assets/16d5936a-5f58-47a5-bd7c-a21faf2ac624)
 
 
-## What is the largest network you managed to deal with?
+## Largest Network
 
 - We were able to test on a network size of **80,000** **nodes** for **10 unique message** **requests** and acheived average hops of **8.40202**
 - This limit is purely a hardware bottleneck and the algorithm is capable of handling much larger requests.
