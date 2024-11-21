@@ -1,8 +1,5 @@
 # Chord Protocol
-
-## What is working?
-
-We have implemented the peer-to-peer lookup service using the Chord protocol as described in [the publication](https://pdos.csail.mit.edu/papers/ton:chord/paper-ton.pdf)
+This is an implementation of the peer-to-peer lookup service using the Chord protocol as described in [the publication](https://pdos.csail.mit.edu/papers/ton:chord/paper-ton.pdf)
 
 ### Network Construction
 
@@ -30,7 +27,8 @@ We have implemented the peer-to-peer lookup service using the Chord protocol as 
 - The paper also talks about how the worst case lookup would not exceed - $log(n)$
 - Our results aligned with the experimental trials conducted by the authors of the paper
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/82f4c7c3-0ab8-4682-8bb3-600e29c0c012/ff0622c0-f13d-46a2-a334-6dcd4490c353/image.png)
+![image](https://github.com/user-attachments/assets/16d5936a-5f58-47a5-bd7c-a21faf2ac624)
+
 
 ## What is the largest network you managed to deal with?
 
