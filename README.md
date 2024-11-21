@@ -1,7 +1,5 @@
 # Chord Protocol
 
-## Team Memebers
-
 ## What is working?
 
 We have implemented the peer-to-peer lookup service using the Chord protocol as described in [the publication](https://pdos.csail.mit.edu/papers/ton:chord/paper-ton.pdf)
